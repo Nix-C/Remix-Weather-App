@@ -23,14 +23,12 @@ export const loader: LoaderFunction = async () => {
 export default function Index() {
   const forecast: ForecastResponse = useLoaderData<typeof loader>();
 
-  console.log(forecast);
-  console.log(forecast.timelines.daily[0].values.temperature);
-  const current = forecast.timelines.daily[0].values.temperature;
-  console.log(current);
+  console.log(JSON.stringify(forecast.timelines.minutely.values.temperature));
+  const current = forecast.timelines.daily[0].values.temperatureAvg;
 
   return (
     <div className="font-sans p-4">
-      <Glance current={current} />
+      <Glance current={current} weatherCode={1001} />
     </div>
   );
 }

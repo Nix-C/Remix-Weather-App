@@ -1,3 +1,13 @@
-export default function Glance({ current }: { current: number }) {
-  return <>Temperature: {current ? current : "Loading..."}</>;
+export default function Glance({
+  current,
+  weatherCode,
+}: {
+  current: number | string;
+  weatherCode: number;
+}) {
+  return (
+    <>
+      {weatherCode} {current ? current + " °C" : "Loading..."}
+    </>
+  );
 }
