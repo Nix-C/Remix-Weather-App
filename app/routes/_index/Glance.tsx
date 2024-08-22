@@ -1,13 +1,46 @@
+import WeatherCodeIcon from "~/helpers/WeatherCodeIcon";
+import { toFahrenheit } from "~/helpers/utils";
+import type { minuteEntry } from "~/services/tomorrow-io/forecast";
+import { metric, imperial } from "~/services/tomorrow-io/fields";
+type Unit = "imperial" | "metric";
+
 export default function Glance({
-  current,
-  weatherCode,
+  unit = "imperial",
+  currentData,
 }: {
-  current: number | string;
-  weatherCode: number;
+  unit: Unit;
+  currentData: minuteEntry;
 }) {
-  return (
-    <>
-      {weatherCode} {current ? current + " °C" : "Loading..."}
-    </>
-  );
+  const date = new Date(currentData.time);
+  const { weatherCode } = currentData.values;
+  let { temperature } = currentData.values;
+  let fields: typeof metric | typeof imperial = metric;
+  const dateFormat = new Intl.DateTimeFormat("en-GB", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  if (unit === "imperial") {
+    temperature = toFahrenheit(temperature);
+    fields = imperial;
+  }
+
+  if (temperature) {
+    return (
+      <section className="glance">
+        <h4>{dateFormat.format(date)}</h4>
+        <h1>
+          <WeatherCodeIcon weatherCode={weatherCode} />
+          <span>
+            {Math.round(temperature)} °{unit === "imperial" ? "F" : "C"}
+          </span>
+        </h1>
+        <h3>{fields.weatherCode[weatherCode.toString()]}</h3>
+      </section>
+    );
+  } else {
+    return <>Loading...</>;
+  }
 }
