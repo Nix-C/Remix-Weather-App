@@ -26,14 +26,14 @@ export const loader: LoaderFunction = async ({
   let forecast: ForecastResponse | null = null;
 
   if (location) {
-    console.log(`🤡 Getting data for ${location}`);
-    // forecast = await getForecast(location);
+    console.log(`Getting data for ${location}`);
+    forecast = await getForecast(location);
   } else if (latitude && longitude) {
-    console.log(`🤡 Getting data for ${latitude}, ${longitude}`);
+    console.log(`Getting data for ${latitude}, ${longitude}`);
     forecast = await getForecast(`${latitude}, ${longitude}`);
   } else {
-    console.log(`🤡 No location data. Defaulting to new york`);
-    // forecast = await getForecast(`new york`);
+    console.log(`No location data. Defaulting to new york`);
+    forecast = await getForecast(`new york`);
   }
 
   if (forecast == (null || undefined)) {
