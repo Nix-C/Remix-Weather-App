@@ -11,15 +11,17 @@ export default function Daily({
 }: {
   dailyForecastData: ForecastEntry[];
 }) {
+  let isFirst = true;
   const days = dailyForecastData.map((day) => {
     const date = new Date(day.time);
-
+    const dayText = isFirst ? "Today" : dateFormat.format(date);
+    isFirst = false;
     return (
       <div key={crypto.randomUUID()} className="day">
-        <h1>{dateFormat.format(date)}</h1>
+        <h1>{dayText}</h1>
         <WeatherCodeIcon weatherCode={day.values.weatherCodeMax} />
-        <h1>High: {toFahrenheit(day.values.temperatureMax)} °F</h1>
-        <h1>Low: {toFahrenheit(day.values.temperatureMin)} °F</h1>
+        <h1>{Math.round(toFahrenheit(day.values.temperatureMax))}°</h1>
+        <h1>{Math.round(toFahrenheit(day.values.temperatureMin))}°</h1>
       </div>
     );
   });

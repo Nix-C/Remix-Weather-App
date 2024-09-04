@@ -32,12 +32,14 @@ export default function Glance({
       <section className="glance">
         <h4>{dateFormat.format(date)}</h4>
         <h1>
-          <WeatherCodeIcon weatherCode={weatherCode} />
           <span>
-            {Math.round(temperature)} °{unit === "imperial" ? "F" : "C"}
+            {Math.round(temperature)}°{unit === "imperial" ? "F" : "C"}
           </span>
         </h1>
-        <h3>{fields.weatherCode[weatherCode.toString()]}</h3>
+        <h3>
+          <WeatherCodeIcon weatherCode={weatherCode} />
+          {fields.weatherCode[weatherCode.toString()]}
+        </h3>
       </section>
     );
   } else {

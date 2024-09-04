@@ -30,15 +30,24 @@ export const loader: LoaderFunction = async ({
     // forecast = await getForecast(location);
   } else if (latitude && longitude) {
     console.log(`🤡 Getting data for ${latitude}, ${longitude}`);
-    // forecast = await getForecast(`${latitude}, ${longitude}`);
+    forecast = await getForecast(`${latitude}, ${longitude}`);
   } else {
     console.log(`🤡 No location data. Defaulting to new york`);
     // forecast = await getForecast(`new york`);
   }
 
-  if (forecast == null) {
+  if (forecast == (null || undefined)) {
     console.error(
       "Error: No response from tomorrow.io. Showing example data instead."
+    );
+    return getForecastExample;
+  }
+
+  // TODO: Handle tomorrow.io api error codes
+  if (forecast.code) {
+    console.error(
+      "Error: Received error from tomorrow.io. Showing example data instead.",
+      forecast.code
     );
     return getForecastExample;
   }
@@ -62,7 +71,7 @@ export default function Index() {
         preventScrollReset: true,
       });
     });
-  }, [searchParams, setSearchParams]);
+  }, [setSearchParams, searchParams]);
 
   return (
     <div className="highlight">
