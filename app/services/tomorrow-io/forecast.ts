@@ -6,6 +6,7 @@ export interface ForecastResponse {
     hourly: ForecastEntry[];
     daily: ForecastEntry[];
   };
+  code: string;
 }
 
 export interface minuteEntry {
