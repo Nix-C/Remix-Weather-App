@@ -21,9 +21,8 @@ export const loader: LoaderFunction = async ({
   request,
 }: LoaderFunctionArgs) => {
   // Get `location` data...
-  let forecast: ForecastResponse | null = null;
 
-  //...
+  let forecast: ForecastResponse | null = null;
   forecast = await getForecast(location); // `getForecast` is using our API key!
 
   //...
