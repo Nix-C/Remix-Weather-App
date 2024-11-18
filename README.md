@@ -12,7 +12,7 @@ By default, Remix supplies a simple server app that renders our site. This means
 
 ### Loader Functions ✨
 
-In this app, we're running a special hook in Remix called a `Loader`. This function only runs on the server, but ONLY passes the returned data to the client!
+In this app, we're running a special function in Remix called a `Loader`. This function only runs on the server, but ONLY passes the returned data to the client!
 
 Here's a simplified example of how we're getting our location data:
 
